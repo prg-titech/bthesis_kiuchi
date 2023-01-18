@@ -1,11 +1,4 @@
 %%%%
 \chapter{実装} \label{implementation}
 
-Lively.next\cite{Lively.next}
-$\Leftrightarrow$
-Pyodide\cite{Pyodide}
-$\Leftrightarrow$
-SymPy\cite{SymPy}
-
-それぞれについて紹介し、実際の実装を説明する。
-
+実装は、フロントエンドに Lively.next\cite{Lively.next} を、文字式の計算に SymPy\cite{SymPy} を用いた。また、 SymPy は Python のライブラリであるが、WebAssembly で実装された CPython 処理系の Pyodide\cite{Pyodide} を用いることでブラウザ上で完結させた。
