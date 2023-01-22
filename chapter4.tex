@@ -2,19 +2,17 @@
 
 実装は、フロントエンドに lively.next~\cite{lively.next} を、文字式の計算に SymPy~\cite{SymPy} を用いた。また、 SymPy は Python のライブラリであるが、WebAssembly で実装された CPython 処理系の Pyodide~\cite{Pyodide} を用いることでブラウザ上で完結させた。また、数式の表示には KaTeX~\cite{KaTeX} を用いた。
 
-\section{lively.lext}
+\section{lively.next}
 lively.next~\cite{lively.next} は、Lively プロジェクト\cite{lively}の一つで、ブラウザ上でプログラミングができる環境である。シミュレーション画面とそれぞれの値、SymPy を用いた計算用の画面を lively.next 上で実装している。
 
 \section{SymPy}
 SymPy~\cite{SymPy}は、文字式の計算を可能にするPythonライブラリである。図\ref{SymPy_example}に簡単な例を載せる。SymPyを用いることで、実際に物理の問題を解くように文字式の計算を実行することができる。数値の代入も可能なため、シミュレーションを実行する際は SymPy で表現された式に数値を代入して計算している。
 
 \clearpage
-\newgeometry{left=3cm}
 \begin{figure}
-\includegraphics[page=1, scale=.9]{work/SymPy_example-crop.pdf}
+\includegraphics[page=1, scale=.8]{work/SymPy_example-crop.pdf}
 \caption{SymPyを用いた文字式の計算例} \label{SymPy_example}
 \end{figure}
-\restoregeometry
 \clearpage
 
 \section{Pyodide}
