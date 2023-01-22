@@ -90,7 +90,7 @@ FUNCTION {required.argument}
 FUNCTION {required.exclusive.or.argument}
 { 't :=
   empty$
-    { 's := 
+    { 's :=
       empty$
         { t " or " * s * " is missing in " * cite$ * warning$}
         'skip$
@@ -145,7 +145,7 @@ FUNCTION {optional.series.volume.number.argument}
      if$
    }
    if$
-}            
+}
 
 FUNCTION {output.bibitem}
 { newline$
@@ -391,7 +391,7 @@ FUNCTION {tie.or.space.connect}
 }
 
 FUNCTION {output.volume}
-{ 
+{
   volume empty$
     'skip$
     { "Vol.~" volume * output}
@@ -511,7 +511,7 @@ FUNCTION {format.vol.num.pages}
 { volume empty$
   { ""}
   { " Vol.~" volume * }
-  if$ 
+  if$
   number empty$
     'skip$
     { volume empty$
@@ -537,7 +537,7 @@ FUNCTION {format.chapter.pages}
     'format.pages
     { type empty$
 	{ "chapter" chapter tie.or.space.connect }
-        { type is.kanji 
+        { type is.kanji
              { chapter type tie.or.space.connect }
              { type "l" change.case$ chapter tie.or.space.connect }
           if$
@@ -623,7 +623,7 @@ FUNCTION {format.article.crossref}
     }
     { "In " key * }
   if$
-  " \cite{" * crossref * "}" *
+  " ~\cite{" * crossref * "}" *
 }
 
 FUNCTION {format.crossref.editor}
@@ -678,7 +678,7 @@ FUNCTION {format.book.crossref}
     }
     { format.crossref.editor * }
   if$
-  " \cite{" * crossref * "}" *
+  " ~\cite{" * crossref * "}" *
 }
 
 FUNCTION {format.incoll.inproc.crossref}
@@ -707,23 +707,23 @@ FUNCTION {format.incoll.inproc.crossref}
       if$
     }
   if$
-  " \cite{" * crossref * "}" *
+  " ~\cite{" * crossref * "}" *
 }
 
 FUNCTION {article}
-{ 
+{
 %%%%
   author  "author"  required.argument
   title   "title"   required.argument
   journal "journal" required.argument
   year    "year"    required.argument
 %%%% jssst
-  volume  "volume"  
-  number  "number"  
+  volume  "volume"
+  number  "number"
      required.and.or.argument
   pages   "pages"   required.argument
 %%%%
-  output.bibitem 
+  output.bibitem
   format.authors ": " *
   title output
   crossref missing$
@@ -743,7 +743,7 @@ FUNCTION {article}
 }
 
 FUNCTION {book}
-{ 
+{
 %%%%
   author  "author"
   editor  "editor"
@@ -795,7 +795,7 @@ FUNCTION {booklet}
 }
 
 FUNCTION {inbook}
-{ 
+{
 %%%%
   author  "author"
   editor  "editor"
@@ -809,7 +809,7 @@ FUNCTION {inbook}
 
   optional.series.volume.number.argument
 %%%%
-  output.bibitem 
+  output.bibitem
   author empty$
     { format.editors}
     { format.authors}
@@ -877,7 +877,7 @@ FUNCTION {inproceedings}
 
   optional.series.volume.number.argument
 %%%%
-  output.bibitem 
+  output.bibitem
   format.authors ": " *
   title output
   crossref missing$
@@ -902,7 +902,7 @@ FUNCTION {inproceedings}
 FUNCTION {conference} { inproceedings }
 
 FUNCTION {manual}
-{	
+{
 %%%%
   title   "title"    required.argument
 %%%% jssst
@@ -943,7 +943,7 @@ FUNCTION {mastersthesis}
   author empty$
     { "Master's thesis" }
     { author is.kanji
-        { "修士論文" }  
+        { "修士論文" }
         { "Master's thesis" }
       if$
     }
@@ -965,7 +965,7 @@ FUNCTION {misc}
   title  "title"  required.argument
 %%%%
   output.bibitem
-  format.authors 
+  format.authors
   ": " *
   title output
   howpublished output
@@ -984,7 +984,7 @@ FUNCTION {phdthesis}
   school   "school"  required.argument
   year     "year"    required.argument
 %%%%
-  output.bibitem 
+  output.bibitem
   format.authors ": " *
   title emphasize output
   author empty$
@@ -1014,9 +1014,9 @@ FUNCTION {proceedings}
 %%%% jssst
   editor  "editor"
   organization "organization"
-      required.exclusive.or.argument 
+      required.exclusive.or.argument
 %%%%
-  output.bibitem 
+  output.bibitem
   editor empty$
     { organization }
     { format.editors }

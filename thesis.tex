@@ -7,11 +7,34 @@
 %
 % 12pt にするのは最終手段
 %
-\documentclass[11pt,oneside]{jbook}
+\documentclass[11pt,oneside,dvipdfmx]{jbook}
 \usepackage{csg-thesis}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{float}
+\usepackage[a4paper]{geometry}
+
+\usepackage{listings,jvlisting}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
 
 \newcommand{\simname}{[ここにシミュレータの名前を入力]}
 
