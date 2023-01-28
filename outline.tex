@@ -7,6 +7,8 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usetikzlibrary{intersections,calc,arrows.meta}
+\setlength{\intextsep}{10pt}
+\setlength{\textfloatsep}{10pt}
 
 \newcommand{\simname}{SimSym}
 \newcommand{\simnamealt}{Simulation with Symbols}
@@ -22,44 +24,61 @@
 \maketitle
 
 \section{はじめに} \label{intro}
-高等学校における物理学の授業において、実験は重要である。Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を検証する最も重要な方法であり、生徒は実験を通してどのような現象が起きるかを確認することができると述べている。しかし実際は、生徒全員が実験を経験しているわけではない。力学分野における最も基本的な「運動の法則」に関する実験の経験は、2014年の調査時点で60\%程度にしか満たない~\cite{2015KJ00010038066}。
+高等学校における物理学の授業において、実験は重要である。Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を検証する最も重要な方法であり、生徒は実験を通してどのような現象が起きるかを確認することができると述べている。% TODO: 具体化
+
+しかし実際は、生徒全員が実験を経験しているわけではない。力学分野において最も基本的な「運動の法則」に関する実験の実施経験は、2014年の調査時点で60\%にしか満たない~\cite{2015KJ00010038066}。
 理由としては、実験用の装置の準備や測定が難しいことや、実験を行うのに時間を要することが考えられる。
 
-そこで実験の代替として近年利用されているのが、シミュレーションである。シミュレーションを用いることで、実験と同様な学習効果を得ることができる~\cite{ajredini_real_2014}。
+そこで実験の代替として近年利用されているのが、物理実験のシミュレーションである。シミュレーションを用いることで、実験と同様な学習効果を得ることができる~\cite{ajredini_real_2014}。
 
-しかし、既存のシミュレータで確認できる情報と、実際に生徒が解く問題の回答との間のギャップは大きい。例えば PhET~\cite{perkins_phet_2006} は、図~\ref{numeral_based}のようにそれぞれの値や計算結果を数値として表現している。一方、生徒が解くことになる物理の問題は図~\ref{symbol_based}のように文字を利用した方程式の計算が主流である。そのため、既存のシミュレータでは生徒が求めた方程式がどのような運動を表現しているのか直接確認することができない。
+しかし、実際に生徒が解く問題の回答と、既存のシミュレータで確認できる情報の間にはギャップがある。生徒が試験などで解く物理の問題は図~\ref{symbol_based}のように物理量として文字を利用した方程式の計算を要求されることが多い。一方、例えばPhET~\cite{perkins_phet_2006} は、図~\ref{numeral_based}のように速度や質量、位置を数値のみで表現していて、どのような計算の結果その数値が導出されたかはわからない。そのため、既存のシミュレータでは生徒が求めた方程式がどのような運動を表現しているのか直接確認することができない。
 
-\begin{figure}[hbt]
-\centering
-\includegraphics*[width=0.9\linewidth]{figure/PhET_example.png}
-\caption{PhET のシミュレーション例} \label{numeral_based}
-\end{figure}
-
-\begin{figure}[hbt]
+\begin{figure}[b]
+% 静止している質量 $m$ の物体に大きさ $F$ の力をかけ続ける。 $t$ 秒後の速度の大きさを求めよ。
 \begin{align}
   \left\{
   \begin{aligned}
     ma &= F & (1)\\
-    v &= v_0 + at & (2)
+    v &= at & (2)
   \end{aligned}
   \right. \nonumber
 \end{align}
-\begin{align}
-  \text{(1)より,}\quad a &= \frac{F}{m} \nonumber\\
-  \text{(2)に代入して,}\quad v &= v_0 + \dfrac{F}{m}t \nonumber
-\end{align}
+(1)より、$a = \dfrac{F}{m}$ \quad (2)に代入して、$v = \dfrac{F}{m}t$
+\centering
+% 答え: $\dfrac{F}{m}t$
 \caption{方程式の計算例} \label{symbol_based}
 \end{figure}
 
-そこで本研究では、物体の運動を方程式で定義できるシミュレータである \simname~(\simnamealt) を提案する。\simname では、定義した方程式に従って数値計算がなされ、シミュレーションが実行され、物体の運動が可視化される。これにより、導出した方程式がどのような運動と対応するか簡単に確認することができる。
+\begin{figure}[thb]
+  \centering
+  \includegraphics*[width=0.9\linewidth]{figure/PhET_example.png}
+  \caption{PhET のシミュレーション例} \label{numeral_based}
+  \end{figure}
 
-\section{\simname}
+そこで本研究では、物体の運動を方程式で定義できるシミュレータである \simname~(\simnamealt) を提案する。\simname では、定義した方程式に従って物体を運動させることができる。シミュレーションを実行すると、定義した方程式によって数値計算がなされ、物体の運動が可視化される。これにより、ユーザが導出した方程式がどのような運動と対応するか簡単に確認することができる。
 
-\simname は、ブラウザ上で実行できるシミュレータである。ユーザは、\simname 上で物体と方程式を作り、それらを紐付ける。シミュレーションを実行すると、時間経過に応じて物体の位置が計算され、ブラウザ上に描画される。
+なお、\simname は大部分が未実装である。そのため、\ref{sec2}節の内容は基本的にはアイデアであるが、\ref{sec3}に記す方針で実装することが可能であると考えている。
 
-まず、物体の名前を入力し物体作成ボタンを押すと、その物体と最低限必要なフィールド(x座標・y座標)が生成される。次に、使いたい定数・変数を追加し、方程式を定義する。この際、定数及び変数にはシミュレーションの計算に用いる初期値を設定する必要がある。なお、時刻を表す変数 $t$ は最初から用意されている。その後、定義した定数・変数を使って方程式を定義する。定義した方程式を物体のフィールドにドラッグすると、そのフィールドに方程式を紐付けることができる。その状態で再生すると、時刻 $t$ が変化しながら各方程式が計算され、方程式に基づいて物体が運動する。
+\section{\simname のアイデア} \label{sec2}
 
-以下では具体例を見ていく。図~\ref{simsym_fig1}は、\simname 上で斜方投射を表現した例である。これを実行すると、$t$ が変化し、各方程式が定数の初期値に従って計算される。この例ではy座標に紐付けている方程式が $v_{0y}t - \frac{gt^2}{2}$ となっていて、図~\ref{correct}のような軌道を描く。これは、大まかに現実世界で物体を投げたときの運動と一致する。一方、例えばy座標に紐付ける方程式を $v_{0y}t + \frac{gt^2}{2}$ とすると、図~\ref{wrong}のような軌道を描き、現実世界の運動、即ち想定していた運動とは異なることがわかる。このように、方程式が表している運動をシミュレーションで確認することが可能である。
+\simname は、ブラウザ上で実行できるシミュレータである。ユーザは以下の操作を行う:
+
+\begin{enumerate}
+\item 物体の作成
+\item 方程式の作成
+\item 物体と方程式の紐付け
+\item シミュレーションの実行
+\end{enumerate}
+
+1. 物体の名前を入力し物体作成ボタンを押すと、その物体と描画に最低限必要なフィールド(x座標・y座標)が生成される。質量や速度などのフィールドは自由に追加することができる。
+
+2. 定数・変数を自由に追加し、方程式を定義する。この際、定数と変数には値(初期値)と次元(長さ、質量等)を設定する必要がある。なお、時刻を表す変数 $t$ は最初から用意されている。その後、追加した定数・変数を使って方程式を定義する。長さとキログラムの和など、次元が一致していない方程式は定義できない。
+
+3. 方程式を物体のフィールドにドラッグすると、そのフィールドに方程式を紐付けることができる。方程式とフィールドの次元が一致していない場合、紐付けることはできない。
+
+4.シミュレーションを再生すると、時刻 $t$ が変化しながら各方程式が計算され、方程式に基づいて物体が運動する。
+
+以下では具体例を見ていく。図~\ref{simsym_fig1}は、\simname 上で斜方投射を表現した例である。この例ではy座標に紐付けている方程式が $v_{0y}t - \frac{gt^2}{2}$ となっているため、シミュレーションを再生すると図~\ref{correct}のような軌道を描く。これは、大まかに現実世界で物体を投げたときの運動と一致する。一方、例えばy座標に紐付ける方程式を $v_{0y}t + \frac{gt^2}{2}$ とすると、図~\ref{wrong}のような軌道を描き、現実世界の運動、即ち想定していた運動とは異なることがわかる。このように、方程式が表している運動をシミュレーションで確認することが可能である。
 
 \begin{figure}[htb]
   \centering
@@ -72,34 +91,37 @@
 \begin{minipage}{0.4\linewidth}
 \centering
 \begin{tikzpicture}
-\draw[domain=-1:1]plot(\x,- \x * \x / 2);
+\draw[->,>=stealth,semithick](-0.2,0)--(2.5,0)node[above]{$x$}node[anchor=north east]{$\small{\left\{ \begin{aligned} x &= v_{0x}t \\ y &= v_{0y}t-\frac{gt^2}{2} \end{aligned} \right.}$};
+\draw[->,>=stealth,semithick](0,-0.2)--(0,1.5)node[right]{$y$};
+\draw[domain=0:2]plot(\x,{-1 * pow(\x-1, 2) + 1});
 \end{tikzpicture}
-\caption{斜方投射の軌道1} \label{correct}
+\caption{斜方投射の軌道} \label{correct}
 \end{minipage}
 \begin{minipage}{0.4\linewidth}
 \centering
 \begin{tikzpicture}
-\draw[domain=1:3]plot(\x, \x * \x / 4);
+\draw[->,>=stealth,semithick](-0.2,0)--(2.5,0)node[above]{$x$}node[anchor=north east]{$\small{\left\{ \begin{aligned} x &= v_{0x}t \\ y &= v_{0y}t+\frac{gt^2}{2} \end{aligned} \right.}$};
+\draw[->,>=stealth,semithick](0,-0.2)--(0,2.5)node[right]{$y$};
+\draw[domain=0:2]plot(\x, {(pow(\x+1, 2) - 1) / 4});
 \end{tikzpicture}
-\caption{斜方投射の軌道2} \label{wrong}
+\caption{誤った軌道} \label{wrong}
 \end{minipage}
 \end{figure}
 
-\section{実装}
-実装は、フロントエンドに lively.next\footnote{\url{https://lively-next.org}} を、文字式の計算に SymPy~\cite{meurer_sympy_2017} を用いた。SymPy は Python のライブラリであるが、WebAssembly で実装された CPython 処理系の Pyodide\footnote{\url{https://pyodide.org/en/stable/}} を用いることでブラウザ上で完結させた。
-% また、数式の表示には KaTeX\footnote{\url{https://katex.org}} を用いた。
+\section{実装} \label{sec3}
+実装は、フロントエンドに lively.next\footnote{\url{https://lively-next.org}} を、文字式の計算に SymPy~\cite{meurer_sympy_2017} を用いる。
 
 \subsection*{lively.next}
-lively.next は、JavaScript で記述されたコンポーネントを組み合わせることでGUIアプリケーションを作成することができるWebプログラミング環境である。ユーザが物体や定数、方程式を追加するインターフェースとシミュレーションを表示する画面は lively.next で作成した。
+lively.next は、JavaScript で記述されたコンポーネントを組み合わせることでGUIアプリケーションを作成することができるWebプログラミング環境である。これを用いることで、ブラウザ上で簡単にGUIアプリケーションが実行できる。ユーザが物体や定数、方程式を追加するインターフェースとシミュレーションを表示する画面を lively.next で作成する。
 
 \subsection*{SymPy}
-SymPy は、方程式の定義や数値代入のための Python ライブラリである。lively.next に入力された内容をもとに、SymPy で方程式を定義し、数値計算を行っている。Python ライブラリであるが、 Pyodide を用いることでブラウザ上で実行させた。
+SymPy は、方程式の定義や数値代入のための Python ライブラリである。lively.next に入力された内容をもとに、SymPy で方程式を定義し、数値計算を行っている。Python ライブラリであるが、 Pyodide~\footnote{\url{https://pyodide.org/en/stable/}} を用いることでブラウザ上で実行させる。
 
 \subsection{Pyodide}
-Pyodide は、WebAssembly で実装された CPython 処理系である。ブラウザ上で Python 並びにいくつかのパッケージを実行することができる。これを用いて、lively.next から SymPy を呼び出して計算することをブラウザ上だけで完結させることができた。
+Pyodide は、WebAssembly で実装された CPython 処理系である。ブラウザ上で Python 並びにいくつかのパッケージを実行することができる。これを用いて、lively.next から SymPy を呼び出して計算することをブラウザ上だけで完結させることができる。
 
 \section{まとめと課題}
-本研究では文字式を基にしたシミュレーションが可能であるシミュレータ \simname を提案した。\simname を用いることで、生徒は自身が導出した文字式がどのような動きと対応するか確認することができる。結果として、物理学に対するより直感的・本質的な理解が期待できる。
+本研究では方程式で物体の動きを定義できるシミュレータ \simname を提案した。\simname を用いることで、生徒は自身が導出した文字式がどのような動きと対応するか確認することができる。結果として、方程式から動きを想像する力が付き、物理学に対するより直感的・本質的な理解が期待できる。
 
 今後の課題として、\simname の教育効果の評価がある。評価手法として、Hake~\cite{hake_1998}が導入した normalized gain を用いた実験を検討する。
 
