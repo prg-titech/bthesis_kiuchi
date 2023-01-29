@@ -55,7 +55,9 @@
   \caption{PhET のシミュレーション例} \label{numeral_based}
   \end{figure}
 
-そこで本研究では、物体の運動を方程式で定義できるシミュレータである \simname~(\simnamealt) を提案する。\simname では、シミュレーションを実行すると、定義した方程式によって数値計算がなされ、物体の運動が可視化される。これにより、ユーザが導出した方程式がどのような運動と対応するか簡単に確認することができる。
+そこで本研究では、物体の運動を方程式で定義できるシミュレータである \simname~(\simnamealt) を提案する。\simname では、シミュレーションを実行すると、定義した方程式によって数値計算がなされ、物体の運動が可視化される。
+% これにより、ユーザが導出した方程式がどのような運動と対応するか簡単に確認することができる。
+さらに、ユーザは $(\text{位置}) - (\text{速度})$ などの誤った方程式は定義することができない。そのため、単純な計算ミスなどを検出することができる。
 
 なお、\simname は大部分が未実装である。そのため、\ref{sec2}節の内容は基本的にはアイデアであるが、\ref{sec3}節に記す方針で実装が可能であると考えている。
 
@@ -70,7 +72,7 @@
 \item シミュレーションの実行: シミュレーションを再生すると、時刻 $t$ が変化しながら各方程式が計算され、方程式に基づいて物体が運動する。
 \end{enumerate}
 
-以下では具体例を見ていく。図~\ref{simsym_fig1}は、\simname 上で斜方投射を表現した例である。この例ではy座標に紐付けている方程式が $v_{0y}t - \frac{gt^2}{2}$ となっているため、シミュレーションを再生すると図~\ref{correct}のような軌道を描く。これは、大まかに現実世界で物体を投げたときの運動と一致する。一方、例えばy座標に紐付ける方程式を $v_{0y}t + \frac{gt^2}{2}$ とすると、図~\ref{wrong}のような軌道を描き、現実世界の運動、即ち想定していた運動とは異なることがわかる。このように、方程式が表している運動をシミュレーションで確認することが可能である。
+以下では具体例を見ていく。図~\ref{simsym_fig1}は、\simname 上で斜方投射を表現した例である。この例ではy座標に紐付けている方程式が $v_{0y}t - \frac{gt^2}{2}$ となっているため、シミュレーションを再生すると図~\ref{correct}のような軌道を描く。ここで、速度の次元を持つ $gt$ という方程式はy座標に紐付けることができない。また、$(\text{位置}) - (\text{速度})$ という形になっている $v_{0y}t - gt$ という方程式を作成しようとすると、次元が一致していないため警告され、定義できない。
 
 \begin{figure}[htb]
   \centering
@@ -80,7 +82,8 @@
 
 \begin{figure}[htb]
 \centering
-\begin{minipage}{0.4\linewidth}
+% \begin{minipage}{0.4\linewidth}
+\begin{minipage}{0.8\linewidth}
 \centering
 \begin{tikzpicture}
 \draw[->,>=stealth,semithick](-0.2,0)--(2.5,0)node[above]{$x$}node[anchor=north east]{$\small{\left\{ \begin{aligned} x &= v_{0x}t \\ y &= v_{0y}t-\frac{gt^2}{2} \end{aligned} \right.}$};
@@ -89,15 +92,15 @@
 \end{tikzpicture}
 \caption{斜方投射の軌道} \label{correct}
 \end{minipage}
-\begin{minipage}{0.4\linewidth}
-\centering
-\begin{tikzpicture}
-\draw[->,>=stealth,semithick](-0.2,0)--(2.5,0)node[above]{$x$}node[anchor=north east]{$\small{\left\{ \begin{aligned} x &= v_{0x}t \\ y &= v_{0y}t+\frac{gt^2}{2} \end{aligned} \right.}$};
-\draw[->,>=stealth,semithick](0,-0.2)--(0,2.5)node[right]{$y$};
-\draw[domain=0:2]plot(\x, {(pow(\x+1, 2) - 1) / 4});
-\end{tikzpicture}
-\caption{誤った軌道} \label{wrong}
-\end{minipage}
+% \begin{minipage}{0.4\linewidth}
+% \centering
+% \begin{tikzpicture}
+% \draw[->,>=stealth,semithick](-0.2,0)--(2.5,0)node[above]{$x$}node[anchor=north east]{$\small{\left\{ \begin{aligned} x &= v_{0x}t \\ y &= v_{0y}t+\frac{gt^2}{2} \end{aligned} \right.}$};
+% \draw[->,>=stealth,semithick](0,-0.2)--(0,2.5)node[right]{$y$};
+% \draw[domain=0:2]plot(\x, {(pow(\x+1, 2) - 1) / 4});
+% \end{tikzpicture}
+% \caption{誤った軌道} \label{wrong}
+% \end{minipage}
 \end{figure}
 
 \section{実装の方針} \label{sec3}
