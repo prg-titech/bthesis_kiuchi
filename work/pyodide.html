@@ -14,7 +14,13 @@
   async function main() {
     let pyodide = await loadPyodide();
     await pyodide.loadPackage("sympy");
+    await pyodide.loadPackage("astropy");
+    await pyodide.loadPackage("micropip");
+    // メモ : symdim
     let code = `
+    import micropip
+    micropip.install("num2tex")
+    micropip.install("symdim")
     from sympy import symbols, Eq, solve, latex
     v0, g, t = symbols('v_0 g t', real=True, positive=True)
     v = symbols('v')
