@@ -16,16 +16,30 @@
     await pyodide.loadPackage("sympy");
     await pyodide.loadPackage("astropy");
     await pyodide.loadPackage("micropip");
-    // メモ : symdim
+    await pyodide.runPythonAsync(`
+import micropip
+await micropip.install("num2tex")
+await micropip.install("symdim")
+print('installed num2tex, symdim')
+    `);
+    // let code = `
+    // import micropip
+    // micropip.install("num2tex")
+    // micropip.install("symdim")
+    // from sympy import symbols, Eq, solve, latex
+    // v0, g, t = symbols('v_0 g t', real=True, positive=True)
+    // v = symbols('v')
+    // eq1 = Eq(v, v0 - g * t)
+    // latex(solve(eq1, t)[0])
+    // `;
     let code = `
-    import micropip
-    micropip.install("num2tex")
-    micropip.install("symdim")
-    from sympy import symbols, Eq, solve, latex
-    v0, g, t = symbols('v_0 g t', real=True, positive=True)
-    v = symbols('v')
-    eq1 = Eq(v, v0 - g * t)
-    latex(solve(eq1, t)[0])
+from symdim import SymDim as S
+from astropy import units as u
+x = S('x', unit=u.m, value=5.0)
+L = S('L', unit=u.m, value=3.0)
+Zw = S('Z_w')
+T0 = S('T_0', unit=u.K,value=300.0)
+T0
     `;
     let result = pyodide.runPython(code);
     let resultDiv = document.getElementById("result");
