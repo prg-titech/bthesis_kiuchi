@@ -121,8 +121,7 @@ PhET~\cite{perkins_phet_2006} では、図~\ref{numeral_based}のように速度
 \section{実装の方針} \label{sec3}
 フロントエンドに lively.next~\cite{ingalls_2008} を、方程式の処理と数値計算に
 % SymPy~\cite{meurer_sympy_2017}
-SymDim\footnote{\url{https://github.com/AndrewChap/symdim}}
-を用い、JavaScript と Python を組み合わせて実装する。lively.next は、GUI アプリケーションを作成・実行するための Web プログラミング環境である。学習者が物体や方程式を定義する画面とシミュレーションを表示する画面を lively.next で作成する。SymDim は、記号計算と次元解析のための Python ライブラリであり、Pyodide~\footnote{\url{https://github.com/pyodide/pyodide}} を用いることで WebAssembly に変換し、ブラウザで実行する。\simname は、入力された物理量や方程式を SymPy オブジェクトに変換することで、数値計算を可能にする。シミュレーションの実行時は、設定された時刻 $t$ の範囲を粒度 $\Delta t$ ずつ変化させる。各方程式に各 $t$ を代入した結果を lively.next が受け取り、描画する。シミュレーションのリアルタイム性を確保するため、各 $t$ を方程式に代入した値は方程式の定義時・変数の値の変更時にあらかじめ計算する。
+SymPy~\cite{meurer_sympy_2017} を用い、JavaScript と Python を組み合わせて実装する。lively.next は、GUI アプリケーションを作成・実行するための Web プログラミング環境である。学習者が物体や方程式を定義する画面とシミュレーションを表示する画面を lively.next で作成する。SymPy は記号計算のための Python ライブラリであり、Pyodide~\footnote{\url{https://github.com/pyodide/pyodide}} を用いることで WebAssembly に変換し、ブラウザで実行する。\simname は、入力された物理量や方程式を SymPy オブジェクトに変換することで、数値計算を可能にする。シミュレーションの実行時は、設定された時刻 $t$ の範囲を粒度 $\Delta t$ ずつ変化させる。各方程式に各 $t$ を代入した結果を lively.next が受け取り、描画する。シミュレーションのリアルタイム性を確保するため、各 $t$ を方程式に代入した値は方程式の定義時・変数の値の変更時にあらかじめ計算する。
 
 \section{まとめと課題}
 本研究では、物理系を定義できるシミュレータ \simname を提案した。学習者は\simname を用いることで、自身が定義した物理系の運動と現実の運動との対応を視覚的に確認することができる。
@@ -132,6 +131,6 @@ SymDim\footnote{\url{https://github.com/AndrewChap/symdim}}
 \bibliographystyle{junsrt}
 \renewcommand{\refname}{}
 \vspace{-5mm}
-\tiny{\bibliography{thesis}}
+\tiny{\bibliography{outline}}
 
 \end{document}
