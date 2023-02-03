@@ -1,16 +1,22 @@
 %%%%
 \chapter{\simname の構成} \label{idea}
 
-\simname の画面は、図~\ref{simsym_fig1}のように左半分の物理系定義ペインと右半分の観測ペインに分かれている。
+\simname の画面は、図~\ref{simsym_fig1}のように左半分の物理系定義ペインと右半分の観測ペインに分かれている。物理系定義ペインで物体の作成や方程式の定義を行い、観測ペインでシミュレーションの結果を確認する。
 
 \subsection*{物理系定義ペイン}
 
 学習者は、物理系定義ペインで以下の操作を行うことで、物理系を定義することができる。
 
 \begin{enumerate}
-\item \textbf{物体の作成}: 学習者が物体名を入力すると、\simname はその物体に紐付いた物理量に対応する次元付き変数($m_A\mathrm{[M]}, x_A\mathrm{[L]}$ など\footnote{$\mathrm{M}$: Mass(質量), $\mathrm{L}$: Length(長さ), $\mathrm{T}$: Time(長さ) などを次元と呼ぶ。例えば速度の次元は $\mathrm{[L/T]}$ と表される。})を生成する。
+\item \textbf{物体の作成}: 学習者が物体名を入力すると、\simname はその物体に紐付いた物理量に対応する次元付き変数($m_A\mathrm{[M]}, x_A\mathrm{[L]}$ など\footnote{$\mathrm{M}$: Mass(質量), $\mathrm{L}$: Length(長さ), $\mathrm{T}$: Time(時間) などを次元と呼ぶ。例えば速度の次元は $\mathrm{[L/T]}$ と表される。})を生成する。
 \item \textbf{方程式の立式}: 学習者は、1.で生成された変数を使って方程式を立式する。この際、次元付き変数は自由に追加することができる。なお、時刻を表す変数 $t\mathrm{[T]}$ や重力加速度 $g\mathrm{[L/T^2]}$ などの物理定数は物体に紐付かない変数として用意されている。また、不正な次元の方程式は警告される。
 \end{enumerate}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics*[width=\linewidth]{work/slide_img5-crop.png}
+  \caption{\simname 上で斜方投射を表現した例} \label{simsym_fig1}
+\end{figure}
 
 \subsection*{観測ペイン}
 
@@ -34,12 +40,6 @@
 \end{enumerate}
 
 ここで、方程式の立式の際に $v_{0x} + t ~\mathrm{([L/T] + [T])}$ のように次元の一致していない式を定義しようとすると、図~\ref{wrongdim}のように警告される。また、重力加速度の向きを間違え $v_{Ay} = v_{0y} + gt$, $y_A = v_{0y}t + \dfrac{gt^2}{2}$ のように定義すると、図~\ref{wrongmove}の実線のような軌道を描いて運動するが、これは動作例の破線と大幅に異なる。そのため、これは現実の運動を正しく表せていないことがわかる。
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics*[width=\linewidth]{work/slide_img5-crop.png}
-  \caption{\simname 上で斜方投射を表現した例} \label{simsym_fig1}
-\end{figure}
 
 \begin{figure}[htb]
 \centering
