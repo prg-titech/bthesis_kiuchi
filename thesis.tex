@@ -9,14 +9,21 @@
 %
 \documentclass[11pt,oneside,dvipdfmx]{jbook}
 \usepackage{csg-thesis}
-\usepackage[dvipdfmx]{graphicx}
-\usepackage{url}
-\usepackage{amsmath}
 \usepackage{pdfpages}
 \usepackage{float}
 \usepackage[a4paper]{geometry}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{geometry}
+% \geometry{top=1cm,  bottom=2cm, left=1.5cm, right=1.5cm}
+% \pagestyle{empty}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\setlength{\intextsep}{10pt}
+\setlength{\textfloatsep}{20pt}
 
 \usepackage{listings,jvlisting}
 \lstset{
@@ -53,40 +60,18 @@
   pdfkeywords={}%
 }
 
-\begin{document}
-
-% 題目
-% 適当に\\で区切って見やすくする
-\title{%
-物理学の学習のためのプログラマブルな
-シミュレータと環境の提案
-}
-
-% 学位(学部と大学院で変更)
+\title{物理系を定義できるシミュレータ \simname の提案}
 \degree{学士}
-%\degree{修士}
-
-% 名前
 \author{木内 康介}
-
-% 提出日
 \date{令和5年2月6日}
-
-% 卒業年度
 \schoolyear{令和4年}
-
-% 所属(学部と大学院で変更)
 \department{東京工業大学 情報理工学院 数理・計算科学系}
-
-% 学籍番号
 \stnumber{18B04657}
-
-% 指導教員(教官ではなくなった...)
 \supervisor{増原 英彦 教授}
 
-\maketitle
+\begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
 
 % 概要
 \begin{abstract}

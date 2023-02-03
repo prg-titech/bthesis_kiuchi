@@ -1,11 +1,55 @@
 %%%%
-\chapter{提案する内容} \label{method}
+\chapter{\simname の構成} \label{idea}
 
-\begin{itemize}
-\item {
-  シミュレータの概要
-}
-\item {
-  既存のシミュレータとの差異
-}
-\end{itemize}
+\simname の画面は、図~\ref{simsym_fig1}のように左半分の物理系定義ペインと右半分の観測ペインに分かれている。
+
+\subsection*{物理系定義ペイン}
+
+学習者は、物理系定義ペインで以下の操作を行うことで、物理系を定義することができる。
+
+\begin{enumerate}
+\item \textbf{物体の作成}: 学習者が物体名を入力すると、\simname はその物体に紐付いた物理量に対応する次元付き変数($m_A\mathrm{[M]}, x_A\mathrm{[L]}$ など\footnote{$\mathrm{M}$: Mass(質量), $\mathrm{L}$: Length(長さ), $\mathrm{T}$: Time(長さ) などを次元と呼ぶ。例えば速度の次元は $\mathrm{[L/T]}$ と表される。})を生成する。
+\item \textbf{方程式の立式}: 学習者は、1.で生成された変数を使って方程式を立式する。この際、次元付き変数は自由に追加することができる。なお、時刻を表す変数 $t\mathrm{[T]}$ や重力加速度 $g\mathrm{[L/T^2]}$ などの物理定数は物体に紐付かない変数として用意されている。また、不正な次元の方程式は警告される。
+\end{enumerate}
+
+\subsection*{観測ペイン}
+
+物理系の定義後、以下の操作を行うことで観測ペインに情報が描画される。
+
+\begin{enumerate}[resume]
+\item \textbf{観測対象の指定}: 学習者は観測したい物体とその物理量(位置・速度・加速度)を指定する。
+\item \textbf{初期値の入力}: 観測対象を指定した際に、その値を計算するために必要な変数が観測ペイン下部に表示される。これらに値を入力する。
+\item \textbf{シミュレーションの再生}: シミュレーションを再生すると、時刻 $t$ が変化しながら観測対象の物理量が描画される。物体の位置は座標平面上の位置として、速度と加速度はベクトルとして描画される。
+\item \textbf{動作例の選択(オプション)}: 学習者は現実の運動を正しく表現した動作例を選択することができる。動作例と学習者が定義した物理系の運動を比較することで、現実と同じ運動を表現しているか確認することができる。
+\end{enumerate}
+
+以下では具体例を見ていく。図~\ref{simsym_fig1}は、\simname 上で $x$ 軸方向の初速が $v_{0x}$, $y$ 軸方向の初速が $v_{0y}$, 重力加速度の大きさが $g$ であるような斜方投射を表現した例である。
+\begin{enumerate}
+\item 物体 A を作成すると、$x_A$, $y_A$, $v_{Ax}$, $v_{Ay}$ が生成される。初速に対応する変数 $v_{0x}$, $v_{0y}$ を物体 A に追加する。
+\item 1. で用意した変数を用いて方程式を立式する。
+\item 観測対象の物体として A を選択し、位置と速度を選ぶ。
+\item $v_{Ax}$, $v_{Ay}$, $x_A$, $y_A$ を計算するのに必要な $g$, $v_{0x}$, $v_{0y}$ に値を入力する。
+\item シミュレーションを再生すると、位置と速度が描画される。
+\item 動作例として斜方投射を選択し、観測ペーンに破線で表示された正しい軌道と比較する。
+\end{enumerate}
+
+ここで、方程式の立式の際に $v_{0x} + t ~\mathrm{([L/T] + [T])}$ のように次元の一致していない式を定義しようとすると、図~\ref{wrongdim}のように警告される。また、重力加速度の向きを間違え $v_{Ay} = v_{0y} + gt$, $y_A = v_{0y}t + \dfrac{gt^2}{2}$ のように定義すると、図~\ref{wrongmove}の実線のような軌道を描いて運動するが、これは動作例の破線と大幅に異なる。そのため、これは現実の運動を正しく表せていないことがわかる。
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics*[width=\linewidth]{work/slide_img5-crop.png}
+  \caption{\simname 上で斜方投射を表現した例} \label{simsym_fig1}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\begin{minipage}{0.35\linewidth}
+\includegraphics*[width=\linewidth]{work/slide_wrongdim.png}
+\caption{誤った次元の定義例} \label{wrongdim}
+\end{minipage}
+\quad
+\begin{minipage}{0.5\linewidth}
+\includegraphics*[width=\linewidth]{work/slide_wrongmove.png}
+\caption{誤った運動の定義例} \label{wrongmove}
+\end{minipage}
+\end{figure}
