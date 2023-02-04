@@ -7,7 +7,7 @@
 %
 % 12pt にするのは最終手段
 %
-\documentclass[11pt,oneside,dvipdfmx,draft]{jbook}
+\documentclass[11pt,oneside,dvipdfmx,draft=false]{jbook}
 \usepackage{csg-thesis}
 \usepackage{pdfpages}
 \usepackage{float}
@@ -23,6 +23,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumitem}
+\usepackage{color}
 \setlength{\intextsep}{10pt}
 \setlength{\textfloatsep}{20pt}
 
@@ -43,7 +44,8 @@
   numberstyle={\scriptsize},
   stepnumber=1,
   numbersep=1zw,
-  lineskip=-0.5ex
+  lineskip=-0.5ex,
+  keywordstyle=\color{blue},
 }
 
 \newcommand{\simname}{SimSym}
@@ -51,14 +53,14 @@
 
 \usepackage[dvipdfmx]{hyperref}
 \usepackage{pxjahyper}
-\hypersetup{%
-  setpagesize=false,%
-  hidelinks,%
-  colorlinks=false,%
-  pdftitle={},%
-  pdfsubject={},%
-  pdfauthor={},%
-  pdfkeywords={}%
+\hypersetup{
+  setpagesize=false,
+  hidelinks,
+  colorlinks=false,
+  pdftitle={},
+  pdfsubject={},
+  pdfauthor={},
+  pdfkeywords={},
 }
 
 \title{物理系を定義できるシミュレータ \simname の提案}

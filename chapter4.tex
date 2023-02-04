@@ -7,24 +7,63 @@
 lively.next は Lively~\cite{ingalls_2008}から派生したプロジェクトで、ブラウザ上で GUI アプリケーションを作成・実行することができる Web プログラミング環境である。これを用いて、学習者が物体や方程式を定義する物理系定義ペインと、シミュレーション結果を表示する観測ペインを実装する。ブラウザ上で利用できるため、学習者はソフトウェアのインストールなどをする必要がなく、簡単に利用できる。
 
 \begin{figure}[hbt]
+\centering
 \includegraphics[width=0.9\linewidth]{figure/lively_example.png}
+\caption{lively.next を用いて実装されたシミュレーション結果の表示画面}
 \end{figure}
 
 \section{SymPy}
-SymPy は、記号計算のための Python ライブラリである。次元付き変数を作成し、方程式の処理や数値計算を行うことができる。
+SymPy は、記号計算のための Python ライブラリである。次元付き変数を作成し、方程式の処理や数値計算を行うことができる。図~\ref{sympy_example}は、実際に SymPy で斜方投射を表す物理系を定義する例である。
 
-% \section{SymPy}
-% SymPy は、文字式の計算を可能にするPythonライブラリである。図\ref{SymPy_example}に簡単な例を載せる。SymPyを用いることで、実際に物理の問題を解くように文字式の計算を実行することができる。数値の代入も可能なため、シミュレーションを実行する際は SymPy で表現された式に数値を代入して計算している。
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{work/SymPy_example-crop.pdf}
+\caption{SymPy を用いて斜方投射を表す物理系を定義する例} \label{sympy_example}
+\end{figure}
 
-% \clearpage
-% \begin{figure}
-% \includegraphics[page=1, scale=.8]{work/SymPy_example-crop.pdf}
-% \caption{SymPyを用いた文字式の計算例} \label{SymPy_example}
-% \end{figure}
-% \clearpage
+SymPy は次元を扱うことはできるのだが、次元が異なる値同士も足すことができてしまう。図~\ref{sympy_unit_example}では、$t$ に次元 $\mathrm{[T]}$ を、$g$ に次元 $\mathrm{[T/S^2]}$ を割り当てたが、$t + g$ が計算できてしまう。そのため、このような不一致を検出する仕組みを実装する必要がある。
 
-% \section{Pyodide}
-% Pyodide は、Mozilla が開発している WebAssembly で実装された CPython 処理系である。ブラウザ上で Python コードを実行できるほか、メジャーなパッケージにも対応している。 SymPy も Pyodide で実行可能である。実際に Pyodide で SymPy を実行する計算の例を図\ref{Pyodide_example}に、結果を KaTeX を用いて表示した例を図\ref{Pyodide_result}に記す。
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{work/sympy_unit_example-crop.pdf}
+\caption{SymPy 上で単位が異なる値同士を足す例} \label{sympy_unit_example}
+\end{figure}
+
+また、SymPy は Python のライブラリであるが、後述する Pyodide を用いることでブラウザ上で実行することができる。
+
+\section{Pyodide}
+Pyodide は、Mozilla が開発している WebAssembly で実装された CPython 処理系である。ブラウザ上でピュアな Python コードを実行できる。また、Python で書かれたパッケージと C 言語で書かれた一部のパッケージに対応していて、SymPy は Pyodide で実行可能である。実際に Pyodide を実行する例を図~\ref{pyodide_example}に記す。
+
+\begin{figure}[h]
+\centering
+\begin{lstlisting}[language=html]
+<!DOCTYPE html>
+<head>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+  <script>
+    async function main() {
+      let pyodide = await loadPyodide();
+      let result = pyodide.runPython(`
+import js
+result_div = js.document.getElementById("result")
+x = 2
+y = 10
+result_div.textContent = x ** y
+      `);
+    }
+  </script>
+</head>
+<body>
+  <script>main()</script>
+  <p>結果</p>
+  <p id="result" style="float: left"></p>
+</body>
+\end{lstlisting}
+% \includegraphics*[width=0.1\linewidth]{work/pyodide_example.png}
+\caption{Pyodide を利用する例} \label{pyodide_example}
+\end{figure}
+
+% 結果を KaTeX を用いて表示した例を図\ref{Pyodide_result}に記す。
 
 % \newgeometry{left=1cm, right=1cm}
 % \begin{figure}[htb]

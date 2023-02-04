@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+  <script>
+    async function main() {
+      let pyodide = await loadPyodide();
+      let result = pyodide.runPython(`
+import js
+result_div = js.document.getElementById("result")
+x = 2
+y = 10
+result_div.textContent = x ** y
+      `);
+    }
+  </script>
+</head>
+<body>
+  <script>main()</script>
+  <p>結果</p>
+  <p id="result" style="float: left"></p>
+</body>

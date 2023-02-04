@@ -14512,23 +14512,61 @@ a.anchor-link {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">latex</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.units.systems</span> <span class="kn">import</span> <span class="n">SI</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.units</span> <span class="kn">import</span> <span class="n">Quantity</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">time</span>
+</pre></div>
 
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<blockquote><p>初速$~v_0~$,加速度$~-g~$で動いている物体の時刻$~t~$における速度と位置を求めよ</p>
-</blockquote>
-
+     </div>
 </div>
+</div>
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># 文字を作る</span>
-<span class="n">v0</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;v_0 g t&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">v</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;v x&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># デフォルトで用意されている変数 t, g と</span>
+<span class="c1"># 物体 A に紐付く変数 x_A, y_A, v_{Ax}, v_{Ay} を生成</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="o">/</span><span class="n">time</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">xA</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;xA&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;x_A&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">xA</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
+<span class="n">yA</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;yA&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;y_A&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">yA</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
+<span class="n">vAx</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;vAx&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;v_</span><span class="si">{Ax}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">vAx</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="o">/</span><span class="n">time</span><span class="p">)</span>
+<span class="n">vAy</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;vAy&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;v_</span><span class="si">{Ay}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">vAy</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="o">/</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># v_{0x} と v_{0y} を生成</span>
+<span class="n">v0x</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;v0x&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;v_</span><span class="si">{0x}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">v0x</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="o">/</span><span class="n">time</span><span class="p">)</span>
+<span class="n">v0y</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s1">&#39;v0y&#39;</span><span class="p">,</span> <span class="n">latex_repr</span><span class="o">=</span><span class="s1">&#39;v_</span><span class="si">{0y}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">SI</span><span class="o">.</span><span class="n">set_quantity_dimension</span><span class="p">(</span><span class="n">v0y</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="n">length</span><span class="o">/</span><span class="n">time</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14542,9 +14580,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 立式する</span>
-<span class="n">eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v0</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">eq1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 各変数が満たすべき方程式を作成</span>
+<span class="n">eqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">vAx</span><span class="p">,</span> <span class="n">v0x</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">vAy</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xA</span><span class="p">,</span> <span class="n">v0x</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">yA</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">eq</span> <span class="ow">in</span> <span class="n">eqs</span><span class="p">:</span> <span class="n">display</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14560,13 +14598,55 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
 
-<div class="jp-RenderedLatex jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/latex">
-$\displaystyle v = - g t + v_{0}$
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle v_{Ax} = v_{0x}$
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle v_{Ay} = - g t + v_{0y}$
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle x_A = t v_{0x}$
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle y_A = - \frac{g t}{2} + t v_{0y}$
 </div>
 
 </div>
@@ -14581,8 +14661,9 @@ $\displaystyle v = - g t + v_{0}$
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v0</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="n">Rational</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">eq2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 初期値を代入</span>
+<span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">v0x</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">v0y</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">eq</span> <span class="ow">in</span> <span class="n">eqs</span><span class="p">:</span> <span class="n">display</span><span class="p">(</span><span class="n">Math</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">latex</span><span class="p">(</span><span class="n">eq</span><span class="o">.</span><span class="n">lhs</span><span class="p">)</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">latex</span><span class="p">(</span><span class="n">eq</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">param</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
 </pre></div>
 
      </div>
@@ -14598,51 +14679,55 @@ $\displaystyle v = - g t + v_{0}$
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
 
-<div class="jp-RenderedLatex jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/latex">
-$\displaystyle x = - \frac{g t^{2}}{2} + t v_{0}$
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle v_{Ax} = 3$
 </div>
 
 </div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 他の文字について解くこともできる</span>
-<span class="n">solve</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
 
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
 
 
-<div class="jp-RenderedLatex jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/latex">
-$\displaystyle \frac{- v + v_{0}}{g}$
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle v_{Ay} = 0$
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle x_A = 6$
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
+$\displaystyle y_A = 6$
 </div>
 
 </div>
