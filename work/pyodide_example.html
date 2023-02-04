@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <head>
   <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
   <script>
@@ -6,16 +6,15 @@
       let pyodide = await loadPyodide();
       let result = pyodide.runPython(`
 import js
-result_div = js.document.getElementById("result")
+result = js.document.getElementById("result")
 x = 2
 y = 10
-result_div.textContent = x ** y
+result.textContent += str(x ** y)
       `);
     }
   </script>
 </head>
 <body>
   <script>main()</script>
-  <p>結果</p>
-  <p id="result" style="float: left"></p>
+  <p id="result">結果: </p>
 </body>

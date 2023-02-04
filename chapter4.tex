@@ -36,8 +36,8 @@ Pyodide は、Mozilla が開発している WebAssembly で実装された CPyth
 
 \begin{figure}[h]
 \centering
-\begin{lstlisting}[language=html]
-<!DOCTYPE html>
+\begin{lstlisting}[language=HTML]
+<!DOCTYPE HTML>
 <head>
   <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
   <script>
@@ -45,64 +45,29 @@ Pyodide は、Mozilla が開発している WebAssembly で実装された CPyth
       let pyodide = await loadPyodide();
       let result = pyodide.runPython(`
 import js
-result_div = js.document.getElementById("result")
+result = js.document.getElementById("result")
 x = 2
 y = 10
-result_div.textContent = x ** y
+result.textContent += str(x ** y)
       `);
     }
   </script>
 </head>
 <body>
   <script>main()</script>
-  <p>結果</p>
-  <p id="result" style="float: left"></p>
+  <p id="result">結果: </p>
 </body>
 \end{lstlisting}
-% \includegraphics*[width=0.1\linewidth]{work/pyodide_example.png}
+\includegraphics*{work/pyodide_example.png}
 \caption{Pyodide を利用する例} \label{pyodide_example}
 \end{figure}
 
-% 結果を KaTeX を用いて表示した例を図\ref{Pyodide_result}に記す。
+\section{シミュレーションの実行}
 
-% \newgeometry{left=1cm, right=1cm}
-% \begin{figure}[htb]
-% \begin{lstlisting}[language=html]
-% <!DOCTYPE html>
-% <head>
-%   <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
-%   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
-%   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
-%   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-% </head>
-% <body>
-%   <script>
-%     async function main() {
-%       let pyodide = await loadPyodide();
-%       await pyodide.loadPackage("sympy");
-%       let code = `
-%       from sympy import symbols, Eq, solve, latex
-%       v0, g, t = symbols('v_0 g t', real=True, positive=True)
-%       v = symbols('v')
-%       eq1 = Eq(v, v0 - g * t)
-%       latex(solve(eq1, t)[0])
-%       `;
-%       let result = pyodide.runPython(code);
-%       let resultDiv = document.getElementById("result");
-%       resultDiv.textContent = `\\[${result}\\]`;
-%       renderMathInElement(resultDiv);
-%     };
-%     main();
-%   </script>
-%   <p>結果</p><div id="result" style="float: left"></div>
-% </body>
-% \end{lstlisting}
-% \caption{Pyodide を実行する例} \label{Pyodide_example}
-% \end{figure}
-% \restoregeometry
+シミュレーションの実行時は、設定された時刻 $t$ の範囲を粒度 $\Delta t$ ずつ変化させる。各方程式に各 $t$ を代入した結果を lively.next が受け取り、描画する。シミュレーションのリアルタイム性を確保するため、各 $t$ を方程式に代入した値は方程式の定義時・変数の値の変更時にあらかじめ計算する。
 
-% \begin{figure}[htb]
-% \centering
-% \includegraphics{work/pyodide_screenshot.png}
-% \caption{実行結果} \label{Pyodide_result}
-% \end{figure}
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=0.85\linewidth]{work/deltat_example-crop.pdf}
+\caption{シミュレーション実行のための数値計算例} \label{deltat_exapmle}
+\end{figure}

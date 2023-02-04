@@ -14581,7 +14581,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 各変数が満たすべき方程式を作成</span>
-<span class="n">eqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">vAx</span><span class="p">,</span> <span class="n">v0x</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">vAy</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xA</span><span class="p">,</span> <span class="n">v0x</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">yA</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">eqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">Eq</span><span class="p">(</span><span class="n">vAx</span><span class="p">,</span> <span class="n">v0x</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">vAy</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">xA</span><span class="p">,</span> <span class="n">v0x</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="n">Eq</span><span class="p">(</span><span class="n">yA</span><span class="p">,</span> <span class="n">v0y</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
 <span class="k">for</span> <span class="n">eq</span> <span class="ow">in</span> <span class="n">eqs</span><span class="p">:</span> <span class="n">display</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
 </pre></div>
 
@@ -14646,7 +14646,7 @@ $\displaystyle x_A = t v_{0x}$
 
 
 <div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
-$\displaystyle y_A = - \frac{g t}{2} + t v_{0y}$
+$\displaystyle y_A = - \frac{g t^{2}}{2} + t v_{0y}$
 </div>
 
 </div>
@@ -14727,7 +14727,7 @@ $\displaystyle x_A = 6$
 
 
 <div class="jp-RenderedLatex jp-OutputArea-output " data-mime-type="text/latex">
-$\displaystyle y_A = 6$
+$\displaystyle y_A = 4$
 </div>
 
 </div>
