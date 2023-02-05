@@ -1,35 +1,54 @@
-%%%%
 \chapter{関連研究} \label{related}
 
 この章では、既存のシミュレータとそれを用いた教育の実例について紹介する。
 
 \section{PhET}
 
-PhET(Physics Education Technology)~\cite{perkins_phet_2006} は、コロラド大学ボルダー校によるプロジェクトで、物理学の教育に活用できるシミュレーションの作成を目標としている。2023年1月現在、ウェブサイト\footnote{\url{https://phet.colorado.edu}}上では50以上のシミュレーションが公開されている。また、
+PhET(Physics Education Technology)~\cite{perkins_phet_2006} は、コロラド大学ボルダー校によるプロジェクトで、物理学の教育に活用できるシミュレーションの作成を目標としている。2023年2月現在、ウェブサイト\footnote{\url{https://phet.colorado.edu}}上では50以上のシミュレーションが公開されている。また、
 物理学のみならず化学・数学・生物学・地球科学などのシミュレーションも公開されている。
 
-% ここからは、PhETの物理学シミュレーションに的を絞ってより詳しく紹介する。PhETでは、学習レベルに応じたシミュレーションの分類も行っている。各レベル毎のシミュレーションの数は表\ref{PhET_sim_count_table}の通りである。
+\subsection{PhETの教育効果}
 
-% \begin{table}[htb]
-% \centering
-% \caption{PhET における GRADE LEVEL 毎のシミュレーション数} \label{PhET_sim_count_table}
-% \begin{tabular}{cr}
-%   GRADE LEVEL & 個数 \\
-%   \hline
-%   Elementary School & 23 \\
-%   Middle School & 37 \\
-%   High School & 49 \\
-%   University & 47 \\
-% \end{tabular}
-% \end{table}
+\subsubsection{Ajrediniの 実験}
 
-\subsection{PhETを用いた実例}
+Ajredini~\cite{ajredini_real_2014} は、マケドニアの高校生に PhET を用いて電荷について教える実験を行った。実際の実験を行うグループ、PhET のシミュレーションを利用するグループ、実験を行わないグループの3つに分け、電荷に関する授業を行った。その後、いくつかのシチュエーションを指定し、スケッチを描かせた。各シチュエーションと正答率は表~\ref{ajredini_result}の通りであり、実際の実験と PhET との間の有意差は見られなかった。
 
-Prima~\cite{prima_learning_2018}は、インドネシアの中学校の生徒にPhETを用いて太陽系について教える実験を行った。Primaは、PhETを利用する効果をN-Gain(normalized gain)を用いて評価している。満点を $100$ とする pre-test と post-test の平均点をそれぞれ $\langle \textrm{pre\\-test} \rangle$, $\langle \textrm{post\\-test} \rangle$ とすると、 N-Gain $\langle g \rangle$ は以下のように求められる:
+\begin{table}[htb]
+\noindent\rule{\linewidth}{0.4pt}
+\begin{quote}
+2つの軽い中性の金属球を糸でぶら下げる。次のような場合についてスケッチを描け。
+\end{quote}
+\begin{enumerate}
+\renewcommand{\labelenumi}{\alph{enumi}).}
+\item 両方の球体に毛布で擦ったプラスチック棒を接触させ、帯電させる
+\item (a) の状態で、球体をより遠くに置く
+\item 球体 A は毛布で擦ったプラスチック棒で帯電させ、球体 B は皮で擦ったガラス棒で帯電させる。
+\item 両方の球体をプラスチック棒で帯電させるが、球体 A は球体 B より多く帯電させる。
+\item 球体 A はプラスチック棒で帯電させ、球体 B は中性のままにする
+\item 球体 A はガラス棒で帯電させ、球体 B は中性のままにする
+\end{enumerate}
+\centering
+\begin{tabular}{rrrr}
+  \toprule
+  グループ & 実験 & PhET & 座学 \\
+  \midrule
+  a) & 75 & 66 & 43 \\
+  b) & 35 & 34 & 14 \\
+  c) & 67 & 70 & 31 \\
+  d) & 23 & 26 & 12 \\
+  e) and f) & 11 & 7 & 3 \\
+  \bottomrule
+\end{tabular}
+\caption{Ajredini による実験の結果} \label{ajredini_result}
+\end{table}
+
+\subsubsection{Prima の実験}
+
+Prima~\cite{prima_learning_2018} は、インドネシアの中学生に PhET を用いて太陽系について教える実験を行った。PhET を用いるグループと用いないグループに分け授業を行い、その結果を Normalized Gain を用いて評価している。満点を $100$ とする pre-test と post-test の平均点をそれぞれ $\langle \textrm{pre\\-test} \rangle$, $\langle \textrm{post\\-test} \rangle$ とすると、 Normalized Gain $\langle g \rangle$ は以下のように求められる:
 $$ \langle g \rangle = \dfrac{\langle \textrm{post\\-test} \rangle - \langle \textrm{pre\\-test} \rangle}{100 - \langle \textrm{pre\\-test} \rangle} $$
-また、テストは Bloom's Taxonomy に基づき Remembering, Understanding, Applying, Analyzing の4領域で行われた。結果は表\ref{prima_table}の通りである。
+また、テストは Bloom's Taxonomy に基づき Remembering, Understanding, Applying, Analyzing の4領域で行われた。結果は表\ref{prima_table}の通りであり、全ての分野において PhET を用いた方が Normalized Gain が大きい。
 
-\begin{table}[h]
+\begin{table}[htb]
 \centering
 \begin{tabular}{lcccccc}
   \toprule
@@ -48,13 +67,22 @@ $$ \langle g \rangle = \dfrac{\langle \textrm{post\\-test} \rangle - \langle \te
 \label{prima_table}
 \end{table}
 
-% Cognitive level Control Group Experiment Group pretest posttest N-Gain pretest posttest N-Gain Remembering (C1) 33.33 76.19 0.64 44.44 84.12 0.71 Understanding (C2) 38.62 57.67 0.31 51.85 75.66 0.49 Applying (C3) 54.76 80.95 0.57 69.04 92.85 0.76 Analyzing (C4) 56.34 75.39 0.43 57.14 80.15 0.53
+\clearpage
+\subsection*{Rehman の実験}
+Rehman~\cite{rehman_teaching_2021} は、パキスタンの高校生に PhET を用いて重さと質量の概念について教える実験を行った。また、この授業は週5回・1ヶ月間行われた。結果は表~\ref{rehman_result}の通りであり、有意差が認められる。
 
-\textgt{この調子で書いていくと~\cite{prima_learning_2018}の内容を翻訳するだけになるので一旦中断}
-
-
-
-~\cite{rehman_teaching_2021}
+\begin{table}[htb]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+& Control Group & Experiment Group \\
+\midrule
+pretest & 11.82 & 12.68 \\
+posttest & 16.84 & 29.46 \\
+\bottomrule
+\end{tabular}
+\caption{Rehman による実験の結果} \label{rehman_result}
+\end{table}
 
 \section{Scratch}
 
