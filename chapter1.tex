@@ -7,14 +7,11 @@ Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を
 しかし実際は、生徒全員が実験を経験しているわけではない。林らは、2014年に大学生を対象に物理実験の経験を調査した~\cite{2015KJ00010038066}。これによると、力学分野で最も基本的な「運動の法則」に関する実験経験は60\%であった。また、斜方投射の基本的な問題である「モンキーハンティング~(\ref{monkey_hunting})」に関する実験は10\%に満たない。
 この理由としては、実験用の装置の準備や測定が難しいことや、実験を行うのに時間を要することが考えられる。
 
-\begin{figure}[b]
-
+\begin{figure}[htb]
 \noindent\rule{\linewidth}{0.4pt}
-
 \begin{quote}
 小球を、位置 $(0, 0)$ から初速 $v_0$、 仰角 $\theta$ で発射したところ、位置 $(l, h)$ から自由落下してくる物体に衝突した。 $\tan \theta$ の満たすべき条件を求めよ。ただし、重力加速度の大きさを $g$ とする。
 \end{quote}
-
 \centering
 \includegraphics[width=0.3\linewidth]{work/monkey_hunting.png}
 \caption{モンキーハンティング} \label{monkey_hunting}
@@ -27,9 +24,9 @@ Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を
 しかし、既存のシミュレータでは不十分な点が存在する。学習者が理論を学習するとき、物理法則やそれを前提とした運動を方程式を通して学習する。
 図~\ref{symbol_based}は実際に生徒が解く問題の例
 %TODO: \cite{}
-である。学習者は教科書等で学習した物理法則を方程式の形で利用し、結果も方程式の形で表現される。一方既存のシミュレータである PhET では、図~\ref{numeral_based}のように速度や質量、位置のような物理量を数値でしか確認できず、描画されている物理系がどのような方程式によって表現されているのかわからない。
+である。学習者は教科書等で学習した物理法則を方程式の形で利用し、結果も方程式の形で表現される。一方既存のシミュレータである PhET では、図~\ref{numeral_based}のように速度や質量、位置のような物理量を数値でしか確認できず、描画されている物理系がどのような方程式によって表現されているのかわからない。\\\\
 
-\begin{figure}[b]
+\begin{figure}[htb]
 \noindent\rule{\linewidth}{0.4pt}
 
 \small{\textbf{(問題)} 静止している質量 $m$ の物体に大きさ $F$ の力をかけ続ける。$t$ 秒後の速さを求めよ。}
@@ -40,7 +37,7 @@ Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を
 \caption{方程式の計算例} \label{symbol_based}
 \end{figure}
 
-\begin{figure}[thb]
+\begin{figure}[htb]
 \centering
 \includegraphics*[width=0.9\linewidth]{figure/PhET_example.png}
 \caption{PhET のシミュレーション例} \label{numeral_based}
@@ -54,8 +51,8 @@ Holubova~\cite{holubova_2019}は、実験室での作業は理論的な概念を
 なお、\simname は実際にシミュレーションを表示する部分以外は未実装であるが、\ref{idea}章で説明するアイデアは\ref{implementation}章に記す方針で実装が可能であると考えている。
 
 本論文の構成は以下の通りである。
-第\ref{related}章で、既存のシミュレータとそれを用いた実例について紹介する。
+第\ref{background}章で、現在のシミュレータでは不可能なことについて紹介し、\simname を用いることで解決できることを示す。
 第\ref{idea}章で、\simname のアイデアを説明する。
 第\ref{implementation}章で、\simname の実装について説明する。
-% 第\ref{evaluation}章で、\simname の評価方法を提案する。
+第\ref{related}章で、既存のシミュレータを用いた実例について紹介する。
 第\ref{conclusion}章で、まとめと今後の展望について述べる。
