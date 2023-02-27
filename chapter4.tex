@@ -1,11 +1,17 @@
-\chapter{実装} \label{implementation}
+\chapter{実現} \label{implementation}
 
-\simname は Python を用いて実装されている。入力と表示に Jupyter Notebook~\cite{kluyver_jupyter_nodate} 、グラフの描画に matplotlib~\cite{hunter_matplotlib_2007} 、方程式の処理や数値計算に SymPy~\cite{meurer_sympy_2017} を用いている。
+\simname は Python を用いて実現されている。入力と表示に Jupyter Notebook~\cite{kluyver_jupyter_nodate} 、グラフの描画に matplotlib~\cite{hunter_matplotlib_2007} 、方程式の処理や数値計算に SymPy~\cite{meurer_sympy_2017} を用いている。
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.8\linewidth]{work/imple_diagram-crop.pdf}
+\caption{簡単な全体像}
+\end{figure}
 
 \section{使用している道具}
 
 \subsection{Jupyter Notebook}
-Jupyter Notebook は IPython~\cite{perez_ipython_2007} から分離したプロジェクトである。Jupyter Notebook から IPython カーネルを呼び出すことで、Python のコードを対話的に実行することができる。また、ipywidgets ライブラリを利用すると、Jupyter Notebook 上に GUI を作成することができる。図~\ref{example_jupyter}は、Jupyter Notebook 上にクリックすることのできる Button と、文字を入力できる Text の Widget を生成する例である。
+Jupyter Notebook は IPython~\cite{perez_ipython_2007} から分離したプロジェクトで、Jupyter Notebook から IPython カーネルを呼び出すことで、Python のコードを対話的に実行することができる。また、ipywidgets ライブラリを利用すると、Jupyter Notebook 上に GUI を作成することができる。図~\ref{example_jupyter}は、Jupyter Notebook 上にクリックすることのできる Button と、文字を入力できる Text の Widget を生成する例である。
 
 \begin{figure}[htb]
 \centering
@@ -32,22 +38,6 @@ SymPy は、記号計算のための Python ライブラリである。Symbol �
 \caption{SymPy で Equation を定義し、数値を代入する例} \label{example_sympy}
 \end{figure}
 
-% 図~\ref{sympy_example}は、実際に SymPy で斜方投射を表す物理系を定義する例である。
-
-% \begin{figure}[p]
-% \centering
-% \includegraphics[width=\linewidth]{work/SymPy_example-crop.pdf}
-% \caption{SymPy を用いて斜方投射を表す物理系を定義する例} \label{sympy_example}
-% \end{figure}
-
-% SymPy は次元を扱うことはできるのだが、次元が異なる値同士も足すことができてしまう。図~\ref{sympy_unit_example}では、$t$ に次元 $\mathrm{[T]}$ を、$g$ に次元 $\mathrm{[T/S^2]}$ を割り当てたが、$t + g$ が計算できてしまう。そのため、このような不一致を検出する仕組みを実装する必要がある。
-
-% \begin{figure}[t]
-% \centering
-% \includegraphics[width=\linewidth]{work/sympy_unit_example-crop.pdf}
-% \caption{SymPy 上で単位が異なる値同士を足す例} \label{sympy_unit_example}
-% \end{figure}
-
 \newpage
 \section{処理の流れ}
 以下では、学習者の操作によって \simname がどのように物理系を定義しているかを簡単に説明する。
@@ -61,73 +51,32 @@ SymPy は、記号計算のための Python ライブラリである。Symbol �
   \item 学習者が再生ボタンを押すと、時刻を表す変数 $t$ が時間変化し、物体の位置や座標が再計算され、matplotlib を用いて描画される。
 \end{enumerate}
 
-なおこれらのうち、\ref{未実装1}.に記した「学習者の入力を Equation として解釈する」「不正な次元の方程式になっていないかを確認する」、\ref{未実装2}.に記した「数値計算するために数値を与える必要のある変数を推論する」は未実装である。
+\subsection{実装できていない部分}
 
+先述した \simname の機能のうち、
+\begin{itemize}
+  \item 学習者の入力を Equation として解釈する (\ref{未実装1}.)
+  \item 不正な次元の方程式になっていないかを確認する (\ref{未実装1}.)
+  \item 数値計算するために数値を与える必要のある変数を推論する (\ref{未実装2}.)
+\end{itemize}
+という部分が未実装である。それぞれについて方針を述べる。
 
-% \section{lively.next}
-% lively.next は Lively~\cite{ingalls_2008}から派生したプロジェクトで、ブラウザ上で GUI アプリケーションを作成・実行することができる Web プログラミング環境である。これを用いて、学習者が物体や方程式を定義する物理系定義ペインと、シミュレーション結果を表示する観測ペインを実装する。ブラウザ上で利用できるため、学習者はソフトウェアのインストールなどをする必要がなく、簡単に利用できる。
+\subsubsection*{学習者の入力を Equation として解釈する}
+入力の解釈は、sympy.parsing.sympy\_parser の parse\_expr 関数を使うことで可能である。この関数では、文字列を SymPy のSymbol, Sum, Mul や Eq などに変換できる。実際に行う例を図~\ref{example_parse}に示す。一方、単にこれを用いるだけでは未定義の変数を使うことができてしまう。そのため、解釈された変数が定義されたものなのかを確認する必要がある。また、学習者がアンダースコアなどを入力する必要があったり、意図しない解釈をされる($v_Ax$ と $v_{Ax}$ など)可能性がある。Jupyter に表示されている変数をクリックすることでその変数を入力することができれば、このような誤りは防止でき、学習者の入力にかかる手間も減らすことができる。
 
-% \begin{figure}[hbt]
-% \centering
-% \includegraphics[width=0.9\linewidth]{figure/lively_example.png}
-% \caption{lively.next を用いて実装されたシミュレーション結果の表示画面}
-% \end{figure}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{work/example_parse.png}
+  \caption{parse\_expr 関数で文字列をパースする例} \label{example_parse}
+\end{figure}
 
-% SymPy は、記号計算のための Python ライブラリである。次元付き変数を作成し、方程式の処理や数値計算を行うことができる。図~\ref{sympy_example}は、実際に SymPy で斜方投射を表す物理系を定義する例である。
+\subsubsection*{不正な次元の方程式になっていないかを確認する}
+現在の実装では、 $g + t~~\mathrm{([L/T^2] + [T])}$ のように次元が不正な方程式も定義できてしまう。SymPy の変数に次元の情報を付加し、異なる次元間の加減などを検出する必要がある。自動で追加される変数は生成する際に次元の情報を付加すればよいが、学習者が新たに追加する変数については次元を手動で指定する必要がある。L, M, T などの組み合わせを文字列で入力したものを解釈する、各次元の指数を数値で入力したものを解釈するなどの方法が考えられる。
 
-% \begin{figure}[p]
-% \centering
-% \includegraphics[width=\linewidth]{work/SymPy_example-crop.pdf}
-% \caption{SymPy を用いて斜方投射を表す物理系を定義する例} \label{sympy_example}
-% \end{figure}
-
-% SymPy は次元を扱うことはできるのだが、次元が異なる値同士も足すことができてしまう。図~\ref{sympy_unit_example}では、$t$ に次元 $\mathrm{[T]}$ を、$g$ に次元 $\mathrm{[T/S^2]}$ を割り当てたが、$t + g$ が計算できてしまう。そのため、このような不一致を検出する仕組みを実装する必要がある。
-
-% \begin{figure}[t]
-% \centering
-% \includegraphics[width=\linewidth]{work/sympy_unit_example-crop.pdf}
-% \caption{SymPy 上で単位が異なる値同士を足す例} \label{sympy_unit_example}
-% \end{figure}
-
-% また、SymPy は Python のライブラリであるが、後述する Pyodide を用いることでブラウザ上で実行することができる。
-
-% \section{Pyodide}
-% Pyodide は、Mozilla が開発している WebAssembly で実装された CPython 処理系である。ブラウザ上で Python コードを実行できる。また、Python で書かれたパッケージと C 言語で書かれた一部のパッケージに対応していて、SymPy は Pyodide で実行可能である。実際に Pyodide を実行する例を図~\ref{pyodide_example}に記す。
-
-% \begin{figure}[htb]
-% \centering
-% \begin{lstlisting}[language=HTML]
-% <!DOCTYPE HTML>
-% <head>
-%   <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
-%   <script>
-%     async function main() {
-%       let pyodide = await loadPyodide();
-%       let result = pyodide.runPython(`
-% import js
-% result = js.document.getElementById("result")
-% x = 2
-% y = 10
-% result.textContent += str(x ** y)
-%       `);
-%     }
-%   </script>
-% </head>
-% <body>
-%   <script>main()</script>
-%   <p id="result">結果: </p>
-% </body>
-% \end{lstlisting}
-% \includegraphics*{work/pyodide_example.png}
-% \caption{Pyodide を利用する例} \label{pyodide_example}
-% \end{figure}
-
-% \section{シミュレーションの実行}
-
-% シミュレーションの実行時は、設定された時刻 $t$ の範囲を粒度 $\Delta t$ ずつ変化させる。各方程式に各 $t$ を代入した結果を lively.next が受け取り、描画する。シミュレーションのリアルタイム性を確保するため、各 $t$ を方程式に代入した値は方程式の定義時・変数の値の変更時にあらかじめ計算する。
-
-% \begin{figure}[hbt]
-% \centering
-% \includegraphics[width=0.85\linewidth]{work/deltat_example-crop.pdf}
-% \caption{シミュレーション実行のための数値計算例} \label{deltat_exapmle}
-% \end{figure}
+\subsubsection*{数値計算するために数値を与える必要のある変数を推論する}
+基本的には、学習者が定義した方程式に含まれる変数のうち物体に紐づいている位置・速度以外の変数の値を入力させれば良い。しかし、次のような場合も存在する。
+\begin{align*}
+x_A = X
+X = v_0t
+\end{align*}
+ここで、$x_A$ は物体の $x$ 座標を表す変数で、$X$ と $v_0$ は学習者が定義した変数である。先述した方針では、$X$ と $v_0$ に値を入力する必要がある。しかし実際は $X$ か $v_0$ の一方にのみ値を入力すればよい。このような場合に対応する方法を考える必要がある。

@@ -2,6 +2,22 @@
 
 本章では、学習者に物理系を定義させるシミュレータである \simname を紹介する。
 
+\section{アイデア}
+\simname の基本的なアイデアは、現実の物理現象と物理法則の間の対応を学習者自らの経験を通して理解することができるという点である。既存のシミュレータでは、教育者が物理法則から現象を数式で記述し、シミュレーションに変換する。学習者はシミュレーションを見ることで現実の物理現象を確認することができるが、それと物理法則との関係性は授業などで学ぶのみである(図~\ref{square_diagram_1})。\simname では、物理法則から現象を数式で記述し、シミュレーションに変換するまでの工程も学習者が行う。これにより、従来は授業などで教わる必要があった現実の物理現象と物理法則の間の対応を学習者自らの経験を通して理解することができると考えられる(図~\ref{square_diagram_2})。
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{0.4\linewidth}
+  \includegraphics*[width=\linewidth]{work/square_diagram_1-crop.pdf}
+  \caption{既存のシミュレータによる理解} \label{square_diagram_1}
+  \end{minipage}
+  \quad
+  \begin{minipage}{0.4\linewidth}
+  \includegraphics*[width=\linewidth]{work/square_diagram_2-crop.pdf}
+  \caption{\simname による理解} \label{square_diagram_2}
+  \end{minipage}
+  \end{figure}
+
 \section{画面構成}
 
 図~\ref{simsym_fig1}は、\simname 上で斜方投射のシミュレーションを作成した例である。\simname の画面は、図~\ref{simsym_fig1}のように左半分の物理系定義ペインと右半分の観測ペインに分かれている。物理系定義ペインで物体の作成や方程式の定義を行い、観測ペインでシミュレーションの結果を確認する。
