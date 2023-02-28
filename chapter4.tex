@@ -13,9 +13,9 @@
 \subsection{Jupyter Notebook}
 Jupyter Notebook は IPython~\cite{perez_ipython_2007} から分離したプロジェクトで、Jupyter Notebook から IPython カーネルを呼び出すことで、Python のコードを対話的に実行することができる。また、ipywidgets ライブラリを利用すると、Jupyter Notebook 上に GUI を作成することができる。図~\ref{example_jupyter}は、Jupyter Notebook 上にクリックすることのできる Button と、文字を入力できる Text の Widget を生成する例である。
 
-\begin{figure}[htb]
+\begin{figure}[hbt]
 \centering
-\includegraphics[width=0.9\linewidth]{work/example_jupyter.png}
+\includegraphics[width=0.7\linewidth]{work/example_jupyter.png}
 \caption{Jupyter Notebook 上に Button と Text の
 Widget を生成する例} \label{example_jupyter}
 \end{figure}
@@ -30,7 +30,7 @@ matplotlib は、グラフを描画するためのライブラリである。Jup
 \end{figure}
 
 \subsection{SymPy}
-SymPy は、記号計算のための Python ライブラリである。Symbol オブジェクトとして変数を作成し、Eq オブジェクトとして方程式を定義できる。subs 関数を使うことで、作成した方程式に数値を代入することができる。図~\ref{example_sympy} は、SymPy で Equation を定義し、数値を代入する例である。
+SymPy は、記号計算のための Python ライブラリである。Symbol オブジェクトとして変数を作成し、Eq オブジェクトとして方程式を定義できる。subs 関数を使うことで、作成した方程式に数値を代入することができる。図~\ref{example_sympy} は、SymPy で Equation を定義し、数値を代入する例である。\\\\\\
 
 \begin{figure}[bht]
 \centering
@@ -38,7 +38,7 @@ SymPy は、記号計算のための Python ライブラリである。Symbol �
 \caption{SymPy で Equation を定義し、数値を代入する例} \label{example_sympy}
 \end{figure}
 
-\newpage
+
 \section{処理の流れ}
 以下では、学習者の操作によって \simname がどのように物理系を定義しているかを簡単に説明する。
 
@@ -50,6 +50,8 @@ SymPy は、記号計算のための Python ライブラリである。Symbol �
   \item 学習者が数値を入力すると、Equation に数値が代入される。同時に動作例を表す Equation にも数値が代入され、matplotlib を用いて破線で描画される。
   \item 学習者が再生ボタンを押すと、時刻を表す変数 $t$ が時間変化し、物体の位置や座標が再計算され、matplotlib を用いて描画される。
 \end{enumerate}
+
+\clearpage
 
 \subsection{実装できていない部分}
 
@@ -76,7 +78,7 @@ SymPy は、記号計算のための Python ライブラリである。Symbol �
 \subsubsection*{数値計算するために数値を与える必要のある変数を推論する}
 基本的には、学習者が定義した方程式に含まれる変数のうち物体に紐づいている位置・速度以外の変数の値を入力させれば良い。しかし、次のような場合も存在する。
 \begin{align*}
-x_A = X
-X = v_0t
+x_A &= X \\
+X &= v_0t
 \end{align*}
 ここで、$x_A$ は物体の $x$ 座標を表す変数で、$X$ と $v_0$ は学習者が定義した変数である。先述した方針では、$X$ と $v_0$ に値を入力する必要がある。しかし実際は $X$ か $v_0$ の一方にのみ値を入力すればよい。このような場合に対応する方法を考える必要がある。

@@ -79,7 +79,19 @@ posttest & 16.84 & 29.46 \\
 \caption{Rehman による実験の結果} \label{rehman_result}
 \end{table}
 
+% \section{Modellus Software}
+% Modellus~\cite{modellus} は、数学と物理学のためのモデリングツールである。Modellus を用いる事で、学習者や教育者はインタラクティブにモデルを作成できる。また、モデルの設定はプログラミング言語や特別なコマンドを必要とせず、従来の数式で可能であるという点で \simname とよく似ている。しかし、
 
 \section{Excel を用いる例}
 
-Uddin ら~\cite{uddin_teaching_2017}は、Microsoft Excel を用いて物理系を定義・可視化する手法を提案した。この手法では、自由に方程式を定義することが可能であるが、数式が見にくいという欠点がある。例えば、風速の分布を描画する例でワイブル分布 $f(t) = \dfrac{m}{\eta}\left(\dfrac{t}{\eta}\right)^{m-1}\exp{\left\{-\left(\dfrac{t}{\eta}\right)^m\right\}}$ を用いているが、Excel 上でのこの関数の表現は ((H\$1/H\$2) * ((C3/H\$2)\^{}(H\$1-1)) * EXP(-((C3/H\$2)\^{}H\$1))) となっている。そのため、これを見てもワイブル分布であるとはわかりにくい。また、単位の異なる足し算などの不正な計算をしてしまっても気づくことができない。
+Uddin ら~\cite{uddin_teaching_2017}は、Microsoft Excel を用いて物理系を定義・可視化する手法を提案した。この手法では、自由に方程式を定義することが可能であるが、単位の異なる足し算などの不正な計算をしてしまっても気づくことができない。また、Excel 上で表現された数式は実際の数式と視覚的に遠い。例えば、風速の分布を描画する例でワイブル分布 $f(t) = \dfrac{m}{\eta}\left(\dfrac{t}{\eta}\right)^{m-1}\exp{\left\{-\left(\dfrac{t}{\eta}\right)^m\right\}}$ を用いているが、Excel 上でのこの関数の表現は ((H\$1/H\$2) * ((C3/H\$2)\^{}(H\$1-1)) * EXP(-((C3/H\$2)\^{}H\$1))) となっている。そのため、これを見てもワイブル分布であるとはわかりにくい。
+
+\section{Easy Java Simulations}
+Easy Java Simulations~\cite{christian_modeling_2007} は、ユーザが入力した数式をもとにシミュレーションを生成してくれる Java のソフトウェアである。シミュレーションの科学的な側面にほとんどの時間を集中させ、その他の必要なタスクをコンピュータに自動的に行わせるように設計されている。
+Easy Java Simulations は、ユーザ自身がシミュレーションを作成できるという点で \simname と類似している。 \simname には動作例が存在し、次元のチェックを行うため、学習者が物理系を作成した際により誤りに気づきやすいと考えられる。
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{work/ejs_example.png}
+  \caption{Easy Java Simulations で作成したシミュレーションの例~\cite{esquembre_easy_2019}}
+\end{figure}
